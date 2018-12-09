@@ -10,14 +10,38 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    var orderTabBarItem: UITabBarItem!
     var window: UIWindow?
 
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        return true
+    // Rode notificatie button die bijhoudt hoeveel items er worden besteld.
+    @objc func updateOrderBadge() {
+        switch MenuController.shared.order.menuItems.count {
+        case 0:
+            orderTabBarItem.badgeValue = nil
+        case let count:
+            orderTabBarItem.badgeValue = String(count)
+        }
     }
+    
+
+        func application(_ application: UIApplication,
+                         didFinishLaunchingWithOptions launchOptions:
+            [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+            let temporaryDirectory = NSTemporaryDirectory()
+            let urlCache = URLCache(memoryCapacity: 25_000_000,
+                                    diskCapacity: 50_000_000, diskPath: temporaryDirectory)
+            URLCache.shared = urlCache
+            
+            NotificationCenter.default.addObserver(self, selector:
+                #selector(updateOrderBadge), name:
+                MenuController.orderUpdatedNotification, object: nil)
+            
+            orderTabBarItem = (self.window!.rootViewController! as!
+                UITabBarController).viewControllers![1].tabBarItem
+            
+            return true
+        }
+
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
