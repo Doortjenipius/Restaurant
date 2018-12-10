@@ -28,6 +28,7 @@ class OrderTableViewController: UITableViewController {
         
     }
 
+    // Als dit 0 is, is ordertable leeg. 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
