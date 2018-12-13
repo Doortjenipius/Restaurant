@@ -12,11 +12,13 @@ import UIKit
 // Code van het label die aangeeft hoe lang je order nog duurt.
         @IBOutlet weak var timeRemainingLabel: UILabel!
         
+        @IBOutlet weak var dismissButton: UIButton!
         var minutes: Int!
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            
+// Radius van de button
+            dismissButton.layer.cornerRadius = 5.0
             timeRemainingLabel.text = "Thank you for your order! Your wait time is approximately \(minutes!) minutes."
             
         }
