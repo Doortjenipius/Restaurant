@@ -9,7 +9,7 @@
 import UIKit
 
     class OrderConfirmationViewController: UIViewController {
-        // Code van het label die aangeeft hoe lang je order nog duurt.
+// Code van het label die aangeeft hoe lang je order nog duurt.
         @IBOutlet weak var timeRemainingLabel: UILabel!
         
         var minutes: Int!

@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var orderTabBarItem: UITabBarItem!
     var window: UIWindow?
 
-    // Rode notificatie button die bijhoudt hoeveel items er worden besteld.
+// Rode notificatie button die bijhoudt hoeveel items er worden besteld.
     @objc func updateOrderBadge() {
         switch MenuController.shared.order.menuItems.count {
         case 0:
@@ -38,19 +38,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             orderTabBarItem = (self.window!.rootViewController! as!
                 UITabBarController).viewControllers![1].tabBarItem
+// Order badge wordt geupdate. 
+            updateOrderBadge()
             
             return true
         }
+// Order laden gebeurt vanuit de app delegate.
+    func application(_ application: UIApplication,
+                     willFinishLaunchingWithOptions launchOptions:
+        [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        MenuController.shared.loadOrder()
+        MenuController.shared.loadItems()
+        MenuController.shared.loadRemoteData()
+        
+        return true
+    }
 
+// Slaat juiste data over de app op.
+    func application(_ application: UIApplication,
+                        shouldSaveApplicationState coder: NSCoder) -> Bool {
+        return true
+    }
+
+// Checkt of de app beschikt over de juiste elementen om hem opnieuw te restoren. 
+    func application(_ application: UIApplication,
+                     shouldRestoreApplicationState coder: NSCoder) -> Bool {
+        return true
+    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
 
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+// Order wordt opgeslagen als de app naar de Background gaat.
+    func applicationDidEnterBackground(_ application:
+        UIApplication) {
+        MenuController.shared.saveOrder()
+        MenuController.shared.saveItems()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

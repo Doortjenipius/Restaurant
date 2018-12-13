@@ -29,7 +29,7 @@ struct MenuItem: Codable {
 }
 
 struct MenuItems: Codable {
-    // Alle gerechten in het JSON file
+// Alle gerechten in het JSON file
     let items: [MenuItem]
 }
 
