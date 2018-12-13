@@ -116,20 +116,19 @@
 			isa = PBXGroup;
 			children = (
 				50D1CA7321B53D4D00B05E10 /* AppDelegate.swift */,
-				50D1CA7521B53D4D00B05E10 /* ViewController.swift */,
 				50D1CA7721B53D4D00B05E10 /* Main.storyboard */,
+				50D1CA7C21B53D5100B05E10 /* LaunchScreen.storyboard */,
+				50D1CA7F21B53D5100B05E10 /* Info.plist */,
+				50D1CA7A21B53D5100B05E10 /* Assets.xcassets */,
+				50DEBE2921C26EDA008C0E3B /* Models */,
+				50DEBE2821C26EC6008C0E3B /* Controllers */,
+				50D1CA7521B53D4D00B05E10 /* ViewController.swift */,
 				50D251C021B7C8B700AE119D /* OrderConfirmationViewController.swift */,
-				5042D3E221B59B79004A92EA /* MenuItem.swift */,
-				5042D3E421B59C04004A92EA /* IntermediaryModels.swift */,
-				5042D3E621B59C64004A92EA /* Order.swift */,
 				5042D3E021B59AE0004A92EA /* MenuItemDetailViewController.swift */,
 				5042D3E821B5A240004A92EA /* MenuController.swift */,
 				50BD9AD821B5450B001E75AA /* CategoryTableViewController.swift */,
 				50BD9ADA21B5452B001E75AA /* MenuTableViewController.swift */,
 				50BD9ADC21B5453F001E75AA /* OrderTableViewController.swift */,
-				50D1CA7A21B53D5100B05E10 /* Assets.xcassets */,
-				50D1CA7C21B53D5100B05E10 /* LaunchScreen.storyboard */,
-				50D1CA7F21B53D5100B05E10 /* Info.plist */,
 			);
 			path = Restaurant;
 			sourceTree = "<group>";
@@ -150,6 +149,23 @@
 				50D1CA9521B53D5200B05E10 /* Info.plist */,
 			);
 			path = RestaurantUITests;
+			sourceTree = "<group>";
+		};
+		50DEBE2821C26EC6008C0E3B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		50DEBE2921C26EDA008C0E3B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5042D3E221B59B79004A92EA /* MenuItem.swift */,
+				5042D3E421B59C04004A92EA /* IntermediaryModels.swift */,
+				5042D3E621B59C64004A92EA /* Order.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

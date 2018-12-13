@@ -42,7 +42,7 @@ class MenuController {
                 completion(nil)
             }
         }
-        // Stuurt de request.
+        // Stuurt het request.
         task.resume()
     }
     
@@ -65,7 +65,7 @@ class MenuController {
                 completion(nil)
             }
         }
-        //Stuurt de request.
+        //Stuurt het request.
         task.resume()
     }
     
@@ -95,7 +95,7 @@ class MenuController {
                 completion(nil)
             }
         }
-        //Stuurt de request.
+        //Stuurt het request.
         task.resume()
     }
     
@@ -117,7 +117,7 @@ class MenuController {
                 completion(nil)
             }
         }
-        // Stuurt de request.
+        // Stuurt het request.
         task.resume()
     }
 }
