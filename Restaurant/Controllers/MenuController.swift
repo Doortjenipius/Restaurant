@@ -11,17 +11,17 @@ import UIKit
 
 class MenuController {
     
-// MenuController is shared, zodat hij data kan doorgeven aan meerdere view controllers.
+    // MenuController is shared, zodat hij data kan doorgeven aan meerdere view controllers.
     static let shared = MenuController()
     
-// Variabelen om Menu data van de server te gebruiken. (Local copies).
+    // Variabelen om Menu data van de server te gebruiken. (Local copies).
     private var itemsByID = [Int:MenuItem]()
     private var itemsByCategory = [String:[MenuItem]]()
     
-// Base URL voor alle requests.
+    // Base URL voor alle requests.
     let baseURL = URL(string: "https://resto.mprog.nl/")!
     var order = Order() {
-// Update je order
+        // Update je order
         didSet {
             NotificationCenter.default.post(name:
                 MenuController.orderUpdatedNotification, object: nil)
@@ -29,13 +29,13 @@ class MenuController {
     }
     
     
-// Post request voor het maken van de order bevat de parameters voor de Menu IDs en haalt op hoeveel minuten een gerecht duurt om te bereiden.
+    // Post request voor het maken van de order bevat de parameters voor de Menu IDs en haalt op hoeveel minuten een gerecht duurt om te bereiden.
     func submitOrder(forMenuIDs menuIds: [Int], completion:
         @escaping (Int?) -> Void) {
-// URL voor order.
+        // URL voor order.
         let orderURL = baseURL.appendingPathComponent("order")
         var request = URLRequest(url: orderURL)
-// Default type van GET naar POST.
+        // Default type van GET naar POST.
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField:
             "Content-Type")
@@ -43,27 +43,27 @@ class MenuController {
         let jsonEncoder = JSONEncoder()
         let jsonData = try? jsonEncoder.encode(data)
         
-// POST data is opgeslagen in de request.
+        // POST data is opgeslagen in de request.
         request.httpBody = jsonData
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             let jsonDecoder = JSONDecoder()
             if let data = data,
                 let preparationTime = try?
-                jsonDecoder.decode(PreparationTime.self, from: data) {
+                    jsonDecoder.decode(PreparationTime.self, from: data) {
                 completion(preparationTime.prepTime)
             } else {
                 completion(nil)
             }
         }
-//Stuurt het request.
+        //Stuurt het request.
         task.resume()
     }
     
-// Update de order notificatie button.
+    // Update de order notificatie button.
     static let orderUpdatedNotification =
         Notification.Name("MenuController.orderUpdated")
     
-// Request om plaatjes op te halen vanuit de server.
+    // Request om plaatjes op te halen vanuit de server.
     func fetchImage(url: URL, completion: @escaping (UIImage?) ->
         Void) {
         let task = URLSession.shared.dataTask(with: url) { (data,
@@ -77,18 +77,18 @@ class MenuController {
                 completion(nil)
             }
         }
-// Stuurt het request.
+        // Stuurt het request.
         task.resume()
     }
-
-
-// Laadt het order lokaal.
+    
+    
+    // Laadt het order lokaal.
     func loadOrder() {
         let documentsDirectoryURL =
             FileManager.default.urls(for: .documentDirectory,
                                      in: .userDomainMask).first!
         let orderFileURL =
-        documentsDirectoryURL.appendingPathComponent("order").appendingPathExtension("json")
+            documentsDirectoryURL.appendingPathComponent("order").appendingPathExtension("json")
         
         guard let data = try? Data(contentsOf: orderFileURL) else
         { return }
@@ -96,19 +96,19 @@ class MenuController {
             data)) ?? Order(menuItems: [])
     }
     
-// Slaat het order lokaal op.
+    // Slaat het order lokaal op.
     func saveOrder() {
         let documentsDirectoryURL =
             FileManager.default.urls(for: .documentDirectory,
                                      in: .userDomainMask).first!
         let orderFileURL =
-        documentsDirectoryURL.appendingPathComponent("order").appendingPathExtension("json")
-    
+            documentsDirectoryURL.appendingPathComponent("order").appendingPathExtension("json")
+        
         if let data = try? JSONEncoder().encode(order) {
             try? data.write(to: orderFileURL)
         }
     }
-// Ophalen van data.
+    // Ophalen van data.
     func item(withID itemID: Int) -> MenuItem? {
         return itemsByID[itemID]
     }
@@ -116,17 +116,17 @@ class MenuController {
     func items(forCategory category: String) -> [MenuItem]? {
         return itemsByCategory[category]
     }
-
+    
     var categories: [String] {
         get {
             return itemsByCategory.keys.sorted()
         }
     }
-// Stuurt een notificatie als de data is geupdate.
+    // Stuurt een notificatie als de data is geupdate.
     static let menuDataUpdatedNotification =
         Notification.Name("MenuController.menuDataUpdated")
     
-// Haalt categories op van de server zodra de app wordt gelaunchd.
+    // Haalt categories op van de server zodra de app wordt gelaunchd.
     private func process(_ items: [MenuItem]) {
         itemsByID.removeAll()
         itemsByCategory.removeAll()
@@ -141,8 +141,8 @@ class MenuController {
                 MenuController.menuDataUpdatedNotification, object: nil)
         }
     }
-
-// Haalt Menu op van de server zodra de app wordt gelaunchd.
+    
+    // Haalt Menu op van de server zodra de app wordt gelaunchd.
     func loadRemoteData() {
         let initialMenuURL = baseURL.appendingPathComponent("menu")
         let components = URLComponents(url: initialMenuURL,
@@ -162,14 +162,14 @@ class MenuController {
         
         task.resume()
     }
-  
-// Haalt menu items op van de server zodra de app wordt gelaunchd.
+    
+    // Haalt menu items op van de server zodra de app wordt gelaunchd.
     func loadItems() {
         let documentsDirectoryURL =
             FileManager.default.urls(for: .documentDirectory,
                                      in: .userDomainMask).first!
         let menuItemsFileURL =
-    documentsDirectoryURL.appendingPathComponent("menuItems").appendingPathExtension("json")
+            documentsDirectoryURL.appendingPathComponent("menuItems").appendingPathExtension("json")
         
         guard let data = try? Data(contentsOf: menuItemsFileURL)
             else { return }
@@ -178,20 +178,20 @@ class MenuController {
         process(items)
     }
     
-// Slaat de items op.
+    // Slaat de items op.
     func saveItems() {
         let documentsDirectoryURL =
             FileManager.default.urls(for: .documentDirectory,
                                      in: .userDomainMask).first!
         let menuItemsFileURL =
-    documentsDirectoryURL.appendingPathComponent("menuItems").appendingPathExtension("json")
-
+            documentsDirectoryURL.appendingPathComponent("menuItems").appendingPathExtension("json")
+        
         let items = Array(itemsByID.values)
         if let data = try? JSONEncoder().encode(items) {
             try? data.write(to: menuItemsFileURL)
         }
     }
     
-
-
+    
+    
 }

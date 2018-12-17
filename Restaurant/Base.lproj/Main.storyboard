@@ -279,6 +279,7 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="dismissButton" destination="YD9-q7-Cdg" id="tod-9S-xIV"/>
                         <outlet property="timeRemainingLabel" destination="3b2-4N-fra" id="BEi-kA-ODj"/>
                     </connections>
                 </viewController>

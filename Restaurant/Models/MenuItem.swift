@@ -17,7 +17,7 @@ struct MenuItem: Codable {
     var price: Double
     var category: String
     var imageURL: URL
-
+    
     enum CodingKeys: String, CodingKey {
         case id
         case name
@@ -29,7 +29,7 @@ struct MenuItem: Codable {
 }
 
 struct MenuItems: Codable {
-// Alle gerechten in het JSON file
+    // Alle gerechten in het JSON file
     let items: [MenuItem]
 }
 
